@@ -3,3 +3,8 @@
 - services/media.service.js
 - storage/website-media/ (file per tenant)
 - Upload multipart, ricerca, delete, isolamento 403
+
+Runtime satellite (main → Railway):
+- POST/GET/DELETE /api/website-builder/websites/:id/media
+- Storage: storage/website-media/ per tenant
+- Completata su https://github.com/ristoword/gestione-website-builder

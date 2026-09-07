@@ -1,8 +1,8 @@
 const { describe, it, before } = require('node:test');
 const assert = require('node:assert/strict');
+const path = require('path');
 const os = require('os');
 const fs = require('fs');
-const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const request = require('supertest');
@@ -65,7 +65,7 @@ function createBuilderApp(db) {
   return app;
 }
 
-describe('website-builder Fase F publish', () => {
+describe('website-builder Fase E media library', () => {
   let app;
   let site;
 
@@ -76,39 +76,48 @@ describe('website-builder Fase F publish', () => {
     app = createBuilderApp(db);
     const created = await jsonAgent(app, USER_A)
       .post('/api/website-builder/websites')
-      .send({ name: 'Sito DEF' });
+      .send({ name: 'Sito E' });
     site = created.body.website;
   });
 
-  it('publishes a snapshot, lists versions and rollbacks', async () => {
-    const pub = await jsonAgent(app, USER_A)
-      .post(`/api/website-builder/websites/${site.id}/publish`)
-      .send({ note: 'Prima pubblicazione' });
-    assert.equal(pub.status, 200, JSON.stringify(pub.body));
-    assert.equal(pub.body.website.status, 'published');
-    const versionId = pub.body.version.id;
+  it('uploads, searches, previews and deletes media under tenant isolation', async () => {
+    const up = await jsonAgent(app, USER_A)
+      .post(`/api/website-builder/websites/${site.id}/media`)
+      .send({ filename: 'hero.png', mime: 'image/png', contentBase64: PNG });
+    assert.equal(up.status, 201, JSON.stringify(up.body));
+    const mediaId = up.body.media.id;
+    assert.equal(up.body.media.tenant_id, USER_A.id);
 
-    const versions = await jsonAgent(app, USER_A).get(
-      `/api/website-builder/websites/${site.id}/versions`
+    const search = await jsonAgent(app, USER_A).get(
+      `/api/website-builder/websites/${site.id}/media?q=hero`
     );
-    assert.equal(versions.status, 200);
-    assert.ok(versions.body.versions.length >= 1);
+    assert.equal(search.status, 200);
+    assert.ok(search.body.media.some((m) => m.id === mediaId));
 
-    const un = await jsonAgent(app, USER_A).post(
-      `/api/website-builder/websites/${site.id}/unpublish`
+    const file = await jsonAgent(app, USER_A).get(
+      `/api/website-builder/websites/${site.id}/media/${mediaId}/file`
     );
-    assert.equal(un.status, 200);
-    assert.equal(un.body.website.status, 'unpublished');
+    assert.equal(file.status, 200);
 
-    const rb = await jsonAgent(app, USER_A).post(
-      `/api/website-builder/websites/${site.id}/versions/${versionId}/rollback`
-    );
-    assert.equal(rb.status, 200, JSON.stringify(rb.body));
-    assert.equal(rb.body.website.status, 'published');
-
-    const cross = await jsonAgent(app, USER_B).post(
-      `/api/website-builder/websites/${site.id}/publish`
+    const cross = await jsonAgent(app, USER_B).get(
+      `/api/website-builder/websites/${site.id}/media/${mediaId}/file`
     );
     assert.equal(cross.status, 403);
+
+    const delCross = await jsonAgent(app, USER_B).delete(
+      `/api/website-builder/websites/${site.id}/media/${mediaId}`
+    );
+    assert.equal(delCross.status, 403);
+
+    const del = await jsonAgent(app, USER_A).delete(
+      `/api/website-builder/websites/${site.id}/media/${mediaId}`
+    );
+    assert.equal(del.status, 200);
+  });
+
+  it('GET /status reports Fase E completed on satellite', async () => {
+    const res = await request(app).get('/api/website-builder/status');
+    assert.equal(res.status, 200);
+    assert.ok(res.body.fasiCompletate.includes('E'));
   });
 });
