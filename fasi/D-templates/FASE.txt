@@ -7,3 +7,8 @@ Cartelle reali:
   templates/generico/     landing-generica
 
 Ogni cartella contiene template.json. Aggiungere un template = nuova cartella.
+
+Runtime satellite (main → Railway):
+- Catalogo: GET /api/website-builder/templates (≥10 cartelle)
+- Applica: POST /api/website-builder/websites/:id/apply-template
+- Completata su https://github.com/ristoword/gestione-website-builder

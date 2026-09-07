@@ -1,8 +1,8 @@
 const { describe, it, before } = require('node:test');
 const assert = require('node:assert/strict');
-const path = require('path');
 const os = require('os');
 const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const request = require('supertest');
@@ -65,7 +65,7 @@ function createBuilderApp(db) {
   return app;
 }
 
-describe('website-builder Fasi D–F template, media, publish', () => {
+describe('website-builder Fasi E–F media, publish', () => {
   let app;
   let site;
 
@@ -78,30 +78,6 @@ describe('website-builder Fasi D–F template, media, publish', () => {
       .post('/api/website-builder/websites')
       .send({ name: 'Sito DEF' });
     site = created.body.website;
-  });
-
-  it('lists at least 10 distinct templates loaded from folders and applies one with confirm', async () => {
-    const list = await jsonAgent(app, USER_A).get('/api/website-builder/templates');
-    assert.equal(list.status, 200);
-    assert.ok(list.body.templates.length >= 10);
-    const slugs = new Set(list.body.templates.map((t) => t.slug));
-    assert.equal(slugs.size, list.body.templates.length);
-    const root = path.join(__dirname, '..', 'templates');
-    assert.ok(fs.existsSync(path.join(root, 'ristoranti', 'pizzeria', 'template.json')));
-    assert.ok(fs.existsSync(path.join(root, 'hotel', 'hotel-boutique', 'template.json')));
-
-    const denied = await jsonAgent(app, USER_A)
-      .post(`/api/website-builder/websites/${site.id}/apply-template`)
-      .send({ templateId: 'tpl_pizzeria' });
-    assert.equal(denied.status, 409);
-
-    const applied = await jsonAgent(app, USER_A)
-      .post(`/api/website-builder/websites/${site.id}/apply-template`)
-      .send({ templateId: 'tpl_pizzeria', confirm: true });
-    assert.equal(applied.status, 200, JSON.stringify(applied.body));
-    assert.ok(applied.body.website.pages.length >= 1);
-    const names = applied.body.website.pages.map((p) => p.slug);
-    assert.ok(names.includes('home'));
   });
 
   it('uploads, searches, previews and deletes media under tenant isolation', async () => {
