@@ -1,7 +1,8 @@
 const DEFAULT_APP_URL = 'https://gestione-website-builder-production.up.railway.app';
 
 function isEnabled() {
-  return String(process.env.WEBSITE_BUILDER_ENABLED || '').toLowerCase() === 'true';
+  const v = String(process.env.WEBSITE_BUILDER_ENABLED || 'true').toLowerCase();
+  return v !== 'false' && v !== '0' && v !== 'off';
 }
 
 function getAppUrl() {

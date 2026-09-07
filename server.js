@@ -60,10 +60,30 @@ if (process.env.WEBSITE_BUILDER_DEV_TENANT_ID) {
   });
 }
 
-mount(app);
+app.get('/health', (_req, res) => {
+  res.json({ ok: true, service: 'gestione-website-builder' });
+});
 
-const db = getDb();
-const localUsers = createLocalUsers(db);
+let mountError = null;
+try {
+  mount(app);
+} catch (err) {
+  mountError = err;
+  console.error('[website-builder] mount fallito:', err && err.stack ? err.stack : err);
+  app.get('/api/website-builder/health', (_req, res) => {
+    res.status(503).json({ ok: false, error: String(err && err.message || err) });
+  });
+}
+
+const db = (() => {
+  try {
+    return getDb();
+  } catch (err) {
+    console.error('[website-builder] sqlite:', err && err.message);
+    return null;
+  }
+})();
+const localUsers = db ? createLocalUsers(db) : null;
 
 app.use(express.static(PUBLIC_DIR, { index: false, maxAge: isProduction ? '1h' : 0 }));
 
@@ -82,6 +102,7 @@ app.get('/api/auth/me', (req, res) => {
 });
 
 app.post('/api/auth/register', (req, res) => {
+  if (!localUsers) return res.status(503).json({ success: false, error: 'Database non disponibile' });
   try {
     const user = localUsers.create({
       email: req.body && req.body.email,
@@ -96,6 +117,7 @@ app.post('/api/auth/register', (req, res) => {
 });
 
 app.post('/api/auth/login', (req, res) => {
+  if (!localUsers) return res.status(503).json({ success: false, error: 'Database non disponibile' });
   const user = localUsers.authenticate(req.body && req.body.email, req.body && req.body.password);
   if (!user) return res.status(401).json({ success: false, error: 'Email o password non corretti' });
   req.session.user = user;
@@ -153,9 +175,15 @@ function sendBuilder(_req, res) {
 app.get('/builder', requireCustomerAuth, sendBuilder);
 app.get('/builder/*', requireCustomerAuth, sendBuilder);
 
-app.listen(PORT, () => {
-  console.log(`Gestione Website Builder http://localhost:${PORT}/website`);
-  console.log(`Editor  http://localhost:${PORT}/builder`);
-  console.log(`Health  http://localhost:${PORT}/api/website-builder/health`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Gestione Website Builder http://0.0.0.0:${PORT}/website`);
+  console.log(`Editor  http://0.0.0.0:${PORT}/builder`);
+  console.log(`Health  http://0.0.0.0:${PORT}/health`);
+  console.log(`API     http://0.0.0.0:${PORT}/api/website-builder/health`);
   console.log(`Standalone: sì (account locale). SSO GS: ${GS_BASE || 'non configurato'}`);
+  if (mountError) console.error('[website-builder] avviato con mount parziale');
+});
+server.on('error', (err) => {
+  console.error('[website-builder] listen error:', err);
+  process.exit(1);
 });

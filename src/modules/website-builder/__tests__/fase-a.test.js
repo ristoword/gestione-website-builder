@@ -249,10 +249,10 @@ describe('website-builder Fase A foundation', () => {
     assert.equal(bad.valid, false);
   });
 
-  it('is disabled unless WEBSITE_BUILDER_ENABLED=true', () => {
+  it('is enabled by default and can be turned off with WEBSITE_BUILDER_ENABLED=false', () => {
     const prev = process.env.WEBSITE_BUILDER_ENABLED;
     delete process.env.WEBSITE_BUILDER_ENABLED;
-    assert.equal(isEnabled(), false);
+    assert.equal(isEnabled(), true);
     process.env.WEBSITE_BUILDER_ENABLED = 'false';
     assert.equal(isEnabled(), false);
     process.env.WEBSITE_BUILDER_ENABLED = 'true';
