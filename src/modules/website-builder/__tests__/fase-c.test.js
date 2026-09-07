@@ -116,5 +116,6 @@ describe('website-builder Fase C renderer + preview', () => {
     const res = await request(app).get('/api/website-builder/status');
     assert.equal(res.status, 200);
     assert.equal(res.body.fase, 'J');
+    assert.ok(res.body.fasiCompletate.includes('C'));
   });
 });

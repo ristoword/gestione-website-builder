@@ -5,5 +5,5 @@ module.exports = {
   hubPath: '/website',
   healthPath: '/api/website-builder/health',
   /** Fasi confermate su questo runtime (HUB + A–J). */
-  completed: ['HUB', 'A', 'B']
+  completed: ['HUB', 'A', 'B', 'C']
 };

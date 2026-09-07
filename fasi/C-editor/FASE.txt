@@ -3,3 +3,8 @@
 - website-builder-ui/ (React + Vite, base /builder)
 - renderer/render-site.js (HTML reale da JSON, non mock)
 - Anteprima live POST /websites/:id/preview
+
+Runtime satellite (main → Railway):
+- Editor: https://gestione-website-builder-production.up.railway.app/builder
+- Preview: POST /api/website-builder/websites/:id/preview
+- Completata su https://github.com/ristoword/gestione-website-builder
