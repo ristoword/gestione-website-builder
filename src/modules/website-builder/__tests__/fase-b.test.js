@@ -7,7 +7,7 @@ const request = require('supertest');
 const { openDatabase } = require('../db/sqlite');
 const { migrate } = require('../db/migrate');
 const { createRouter } = require('../website-builder.routes');
-const { resolveAccess } = require('../../payments/access.resolver');
+const { PRODUCT_TO_PLAN } = require('../config/plans.config');
 
 const USER_A = {
   id: 'usr_tenant_a',
@@ -227,11 +227,11 @@ describe('website-builder Fase B CRUD + isolamento', () => {
     assert.equal(gone.status, 403);
   });
 
-  it('rejects create without sitoweb plan and enforces website quota on BASE', async () => {
+  it('standalone without license gets BUSINESS; BASE still capped at 1 site', async () => {
     const noPlan = await jsonAgent(app, USER_NONE)
       .post('/api/website-builder/websites')
       .send({ name: 'Senza piano' });
-    assert.equal(noPlan.status, 403);
+    assert.equal(noPlan.status, 201, JSON.stringify(noPlan.body));
 
     const first = await jsonAgent(app, USER_BASE)
       .post('/api/website-builder/websites')
@@ -256,11 +256,9 @@ describe('website-builder Fase B CRUD + isolamento', () => {
     assert.equal(bad.status, 400);
   });
 
-  it('maps sitoweb access to /account#siti without touching ristoword', () => {
-    const sitoweb = resolveAccess('sitoweb_pro');
-    assert.equal(sitoweb.type, 'sitoweb');
-    assert.equal(sitoweb.redirect, '/account#siti');
-    const rw = resolveAccess('ristoword_monthly');
-    assert.equal(rw.type, 'ristoword');
+  it('maps sitoweb products to Website Builder plans without GS payments', () => {
+    assert.equal(PRODUCT_TO_PLAN.sitoweb_pro, 'business');
+    assert.equal(PRODUCT_TO_PLAN.sitoweb_base, 'starter');
+    assert.equal(PRODUCT_TO_PLAN.sitoweb_premium, 'professional');
   });
 });
