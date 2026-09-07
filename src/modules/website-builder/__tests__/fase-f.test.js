@@ -1,8 +1,5 @@
 const { describe, it, before } = require('node:test');
 const assert = require('node:assert/strict');
-const os = require('os');
-const fs = require('fs');
-const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const request = require('supertest');
@@ -10,9 +7,6 @@ const request = require('supertest');
 const { openDatabase } = require('../db/sqlite');
 const { migrate } = require('../db/migrate');
 const { createRouter } = require('../website-builder.routes');
-
-const PNG =
-  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
 
 const USER_A = {
   id: 'usr_tenant_a',
@@ -38,8 +32,7 @@ function jsonAgent(app, user) {
   }
   return {
     get: (url) => withUser(agent.get(url)),
-    post: (url) => withUser(agent.post(url)),
-    delete: (url) => withUser(agent.delete(url))
+    post: (url) => withUser(agent.post(url))
   };
 }
 
@@ -65,18 +58,17 @@ function createBuilderApp(db) {
   return app;
 }
 
-describe('website-builder Fase F publish', () => {
+describe('website-builder Fase F pubblicazione e versioni', () => {
   let app;
   let site;
 
   before(async () => {
-    process.env.WB_MEDIA_ROOT = fs.mkdtempSync(path.join(os.tmpdir(), 'wb-media-'));
     const db = openDatabase(':memory:');
     migrate(db);
     app = createBuilderApp(db);
     const created = await jsonAgent(app, USER_A)
       .post('/api/website-builder/websites')
-      .send({ name: 'Sito DEF' });
+      .send({ name: 'Sito F' });
     site = created.body.website;
   });
 
@@ -110,5 +102,11 @@ describe('website-builder Fase F publish', () => {
       `/api/website-builder/websites/${site.id}/publish`
     );
     assert.equal(cross.status, 403);
+  });
+
+  it('GET /status reports Fase F completed on satellite', async () => {
+    const res = await request(app).get('/api/website-builder/status');
+    assert.equal(res.status, 200);
+    assert.ok(res.body.fasiCompletate.includes('F'));
   });
 });

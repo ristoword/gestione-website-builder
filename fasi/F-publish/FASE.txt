@@ -3,3 +3,9 @@
 - services/publishing.service.js
 - repositories/versions.repository.js
 - POST publish, unpublish, rollback
+
+Runtime satellite (main → Railway):
+- POST /api/website-builder/websites/:id/publish · /unpublish
+- GET /api/website-builder/websites/:id/versions
+- POST .../versions/:versionId/rollback
+- Completata su https://github.com/ristoword/gestione-website-builder
