@@ -1,15 +1,31 @@
 /**
- * Adapter sessione Gestione Semplificata.
- * Non è un secondo login: richiede req.session.user già valorizzato (cookie GS o DEV_TENANT).
+ * Auth hub Website Builder.
+ * Standalone: redirect a /login locale.
+ * Se WEBSITE_BUILDER_STANDALONE=false, reindirizza a Gestione Semplificata.
  */
+
+function gsBase() {
+  return (process.env.GESTIONE_SEMPLIFICATA_BASE_URL || 'https://gestionesemplificata.com').replace(/\/$/, '');
+}
+
+function isStandalone() {
+  return String(process.env.WEBSITE_BUILDER_STANDALONE || 'true').toLowerCase() !== 'false';
+}
+
+function loginRedirect(req, res) {
+  const dest = req.originalUrl || '/website';
+  if (isStandalone()) {
+    return res.redirect('/login?redirect=' + encodeURIComponent(dest));
+  }
+  return res.redirect(`${gsBase()}/login?redirect=` + encodeURIComponent(dest));
+}
 
 function requireAuth(req, res, next) {
   if (!req.session || !req.session.user) {
     if (req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'))) {
       return res.status(401).json({ error: 'Autenticazione richiesta' });
     }
-    const gs = (process.env.GESTIONE_SEMPLIFICATA_BASE_URL || 'https://gestionesemplificata.com').replace(/\/$/, '');
-    return res.redirect(`${gs}/login?redirect=` + encodeURIComponent(req.originalUrl || '/builder'));
+    return loginRedirect(req, res);
   }
   next();
 }
@@ -23,8 +39,7 @@ function requireCustomerAuth(req, res, next) {
     if (req.xhr || (req.headers.accept && req.headers.accept.includes('application/json'))) {
       return res.status(403).json({ error: 'Area clienti: effettua l\'accesso con email e password' });
     }
-    const gs = (process.env.GESTIONE_SEMPLIFICATA_BASE_URL || 'https://gestionesemplificata.com').replace(/\/$/, '');
-    return res.redirect(`${gs}/login?redirect=` + encodeURIComponent(req.originalUrl || '/builder'));
+    return loginRedirect(req, res);
   }
   next();
 }

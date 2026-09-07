@@ -2,7 +2,7 @@
   "name": "gestione-website-builder",
   "version": "1.0.0",
   "private": true,
-  "description": "Gestione Semplificata — Website Builder (runtime satellite). Identità e fatturazione restano su Gestione Semplificata.",
+  "description": "Gestione Semplificata — Website Builder. Runtime standalone (hub + editor). Deploy Railway da main.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

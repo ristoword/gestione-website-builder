@@ -33,7 +33,9 @@ function collectProductIds(user) {
 
 function resolveEntitlements(user) {
   const productIds = collectProductIds(user);
-  const planKey = pickHighestPlan(productIds);
+  let planKey = pickHighestPlan(productIds);
+  const standalone = String(process.env.WEBSITE_BUILDER_STANDALONE || 'true').toLowerCase() !== 'false';
+  if (!planKey && standalone) planKey = 'business';
   const plan = planKey ? getPlan(planKey) : null;
   return {
     tenantId: user && user.id ? user.id : null,

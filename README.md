@@ -1,44 +1,31 @@
 # Gestione Semplificata — Website Builder
 
-Copia **avviabile** del Website Builder, visibile in Esplora file su questo PC.
+Prodotto **standalone**: hub, editor visuale e API vivono su questo repository.  
+Railway fa il deploy automatico da `main`.
 
-Percorso: `C:\Users\PC\OneDrive\Documenti\Desktop\Gestione-Website-Builder`
+- Repo: https://github.com/ristoword/gestione-website-builder.git  
+- Runtime: https://gestione-website-builder-production.up.railway.app  
+- Hub: https://gestione-website-builder-production.up.railway.app/website  
+- Editor: https://gestione-website-builder-production.up.railway.app/builder  
+- Health: https://gestione-website-builder-production.up.railway.app/api/website-builder/health  
 
-Il login resta quello di **Gestione Semplificata**. Non c’è un secondo account.  
-`tenantId` = `user.id` della sessione GS. Piani: `sitoweb_base` → STARTER, `sitoweb_pro` → BUSINESS, `sitoweb_premium` → PROFESSIONAL.
+**Non dipende da Gestione Semplificata per funzionare.**  
+Puoi registrare un account locale e creare i siti. L’integrazione GS è opzionale (SSO).
 
-Il codice è integrato anche nel monolite:
+## Come si apre
 
-`C:\Users\PC\OneDrive\Documenti\Desktop\gestione semplificata\backend\src\modules\website-builder`
+| Dove | URL |
+|------|-----|
+| Hub (entra qui) | `/website` |
+| Editor | `/builder` |
+| Accedi / Registrati | `/login` · `/register` |
 
-## Struttura
+Locale: `http://localhost:3000/website`  
+Produzione: `https://gestione-website-builder-production.up.railway.app/website`
 
-```
-Gestione-Website-Builder/
-  server.js                 Avvio Node (Railway: npm start)
-  package.json
-  templates/                TEMPLATE A CARTELLE (aggiungi un sito = nuova cartella)
-    ristoranti/             6 template ristorazione
-    hotel/                  3 template ospitalità
-    servizi/                2 template servizi
-    generico/               1 landing
-  src/modules/website-builder/   Motore (SQLite, API, renderer)
-  src/middlewares/          Sessione GS (niente secondo login)
-  website-builder-ui/       Editor visuale React (/builder)
-  data/                     SQLite locale
-  storage/                  Upload media per tenant
-  fasi/                     Diario A–J (cosa è stato creato in ogni fase)
-  docs/                     Architettura e Railway
-```
+Dal menu di Gestione Semplificata la voce **Siti web** apre questo runtime (`WEBSITE_BUILDER_APP_URL`).
 
-## Template: come aggiungerne uno
-
-1. Copia `templates/ristoranti/pizzeria`
-2. Rinomina la cartella, es. `templates/ristoranti/pub-birreria`
-3. Modifica `template.json` (`id`, `slug`, `name`, colori, pagine)
-4. Riavvia. L’editor legge le cartelle da disco: **non serve toccare il codice**.
-
-## Avvio locale
+## Avvio senza Gestione Semplificata
 
 ```bat
 copy .env.example .env
@@ -47,29 +34,55 @@ npm run build:ui
 npm start
 ```
 
-Apri `http://localhost:3000/builder`  
-Health: `http://localhost:3000/api/website-builder/health`
+Apri `http://localhost:PORT/website` (Railway imposta `PORT`).  
+Crea un account su `/register` e usa l’editor.
 
-`.env.example` attiva `WEBSITE_BUILDER_DEV_TENANT_ID` solo per provare in locale. In produzione quella variabile va tolta: si usa il cookie di sessione Gestione Semplificata.
+In produzione **non** impostare `WEBSITE_BUILDER_DEV_TENANT_ID`.
 
-## Fasi
+## Railway — deploy automatico
 
-| Fase | Cartella | Contenuto |
-|------|----------|-----------|
-| A | `fasi/A-foundation` + `src/modules/website-builder/db` | SQLite, tenant, piani, schemi |
-| B | `fasi/B-crud` + `controllers` / `services` | CRUD siti, pagine, sezioni |
-| C | `fasi/C-editor` + `website-builder-ui` | Editor visuale reale |
-| D | `fasi/D-templates` + `templates/` | ≥10 template a cartelle |
-| E | `fasi/E-media` + `storage/` | Libreria media |
-| F | `fasi/F-publish` | Bozza / anteprima / pubblica / versioni |
-| G | `fasi/G-seo-domini` | SEO + dominio (solo TXT) |
-| H | `fasi/H-ai` | AI con API validate |
-| I | `fasi/I-ristosimply` | Integrazione RistoSimply (no duplicazione dati) |
-| J | `fasi/J-limiti` | Limiti piano e hardening |
+1. Su [Railway](https://railway.app) il servizio è collegato a questo repo GitHub (`ristoword/gestione-website-builder`), branch **`main`**.
+2. Ogni `git push origin main` avvia un nuovo deploy (Nixpacks, `npm start`).
+3. Health check: `GET /api/website-builder/health`.
+4. Variabili minime:
 
-## GitHub / Railway
+| Variabile | Valore |
+|-----------|--------|
+| `PORT` | impostata da Railway |
+| `NODE_ENV` | `production` |
+| `WEBSITE_BUILDER_ENABLED` | `true` |
+| `WEBSITE_BUILDER_APP_URL` | `https://gestione-website-builder-production.up.railway.app` |
+| `SESSION_SECRET` | stringa lunga casuale |
+| `WEBSITE_BUILDER_STANDALONE` | `true` (default) |
 
-Repo satellite: https://github.com/ristoword/gestione-website-builder.git  
-Runtime: https://gestione-website-builder-production.up.railway.app  
+Opzionale SSO verso Gestione Semplificata (stesso segreto su GS e su Railway):
 
-Se `cursor[bot]` riceve **403** sul push, autorizza l’app Cursor su quel repository (Write). Finché il repo è vuoto, Railway non può fare il primo deploy.
+| Variabile | Valore |
+|-----------|--------|
+| `GESTIONE_SEMPLIFICATA_BASE_URL` | `https://gestionesemplificata.com` |
+| `WEBSITE_BUILDER_SSO_SECRET` | stesso valore sul backend GS |
+
+Senza queste due variabili l’app resta **completamente autonoma**.
+
+## SSO opzionale da Gestione Semplificata
+
+Se l’utente è già loggato su GS, il menu **Siti web** chiama `/api/wb/launch` e apre  
+`{WEBSITE_BUILDER_APP_URL}/auth/gs?...` con un ticket firmato.  
+Altrimenti si usa login/registrazione locale su questo runtime.
+
+## Struttura
+
+```
+server.js                 Avvio Node (PORT da env)
+public/                   Hub /website, login, register
+src/auth/                 Account locale + SSO
+src/modules/website-builder/   API, SQLite, renderer
+website-builder-ui/       Editor React (/builder)
+templates/                Template a cartelle
+```
+
+## Template
+
+1. Copia una cartella in `templates/`
+2. Modifica `template.json`
+3. Riavvia: l’editor li legge da disco

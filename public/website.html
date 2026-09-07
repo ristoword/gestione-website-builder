@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestione Semplificata — Website Builder</title>
+  <meta name="description" content="Crea, modifica e pubblica il sito del tuo locale. Template, editor, media, domini e SEO.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/hub.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="/website">
+        <span class="brand-mark">GS</span>
+        <span>Website Builder</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="/website" class="is-active">Siti web</a>
+        <a href="/builder">Editor</a>
+        <a href="/login" id="navLogin">Accedi</a>
+      </nav>
+      <button class="navbar-toggle" id="menuToggle" aria-label="Menu">☰</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="badge">Website Builder</span>
+    <h1>Gestione Semplificata — Website Builder</h1>
+    <p>Crea, modifica e pubblica il sito del tuo locale. Template, editor, media, domini e SEO. Funziona da solo, oppure con l’account Gestione Semplificata.</p>
+  </section>
+
+  <main class="container">
+    <nav class="tools" aria-label="Strumenti Website Builder">
+      <a class="card tool" href="/builder" data-wb-action="sites"><h3>I miei siti</h3><p>Elenco dei siti del tuo account.</p></a>
+      <a class="card tool" href="/builder" data-wb-action="create"><h3>Crea sito</h3><p>Avvia un nuovo sito e aprilo nell’editor.</p></a>
+      <a class="card tool" href="/builder" data-wb-action="templates"><h3>Template</h3><p>Parti da un modello per ristoranti e locali.</p></a>
+      <a class="card tool" href="/builder" data-wb-action="editor"><h3>Editor</h3><p>Editor visuale del sito.</p></a>
+      <a class="card tool" href="/builder" data-wb-action="media"><h3>Media</h3><p>Foto, logo e file del sito.</p></a>
+      <a class="card tool" href="/builder" data-wb-action="domains"><h3>Domini</h3><p>Collega e verifica il tuo dominio.</p></a>
+      <a class="card tool" href="/builder" data-wb-action="seo"><h3>SEO</h3><p>Titoli, sitemap e visibilità sui motori.</p></a>
+      <a class="card tool" href="/builder" data-wb-action="publish"><h3>Pubblicazione</h3><p>Metti online o ritira il sito.</p></a>
+    </nav>
+
+    <section class="card panel" id="wb-guest" hidden>
+      <h2>Accedi per gestire i tuoi siti</h2>
+      <p>Puoi creare un account qui (standalone) oppure entrare con Gestione Semplificata se è configurato.</p>
+      <div class="cta">
+        <a class="btn btn-primary" id="wb-login-btn" href="/login?redirect=%2Fwebsite">Accedi</a>
+        <a class="btn btn-outline" id="wb-register-btn" href="/register?redirect=%2Fwebsite">Registrati</a>
+        <a class="btn btn-ghost" id="wb-gs-btn" href="/login?redirect=%2Fwebsite" hidden>Accedi con Gestione Semplificata</a>
+      </div>
+    </section>
+
+    <section class="card panel" id="wb-logged" hidden>
+      <h2>I miei siti</h2>
+      <p class="muted" id="wb-plan-label"></p>
+      <div id="wb-loading" class="muted">Caricamento siti…</div>
+      <div id="wb-sites-list"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>© Gestione Semplificata — Website Builder</span>
+      <span>Editor: <a href="/builder">/builder</a> · Hub: <a href="/website">/website</a></span>
+    </div>
+  </footer>
+  <script src="/js/hub.js"></script>
+</body>
+</html>

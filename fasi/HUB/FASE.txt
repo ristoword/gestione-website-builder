@@ -1,0 +1,10 @@
+FASE HUB — Pagina di ingresso /website
+
+Runtime satellite (questo repo, Railway da main):
+- Hub pubblico: /website
+- Accedi / Registrati locale: /login · /register (funziona SENZA Gestione Semplificata)
+- Editor: /builder
+- SSO opzionale da GS: /auth/gs
+- Health: /api/website-builder/health
+
+Il menu Gestione Semplificata «Siti web» apre WEBSITE_BUILDER_APP_URL (Railway).
