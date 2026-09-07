@@ -1,0 +1,41 @@
+{
+  "id": "tpl_trattoria",
+  "slug": "trattoria",
+  "name": "Trattoria",
+  "category": "ristorazione",
+  "min_plan_key": "starter",
+  "description": "Atmosfera rustica per trattorie e osterie di territorio.",
+  "preview": "preview.txt",
+  "manifest": {
+    "theme": {
+      "colors": {
+        "primary": "#1a1a1a",
+        "accent": "#9a3412",
+        "background": "#fffbeb",
+        "text": "#1a1a1a",
+        "muted": "#5c5c5c"
+      },
+      "fonts": {
+        "heading": "Playfair Display",
+        "body": "DM Sans"
+      },
+      "radius": "12px",
+      "spacing": "1.5rem"
+    },
+    "pages": [
+      {
+        "slug": "home",
+        "title": "Home",
+        "type": "home",
+        "isHome": true,
+        "sections": [
+          "hero",
+          "about",
+          "menu",
+          "events",
+          "contact"
+        ]
+      }
+    ]
+  }
+}

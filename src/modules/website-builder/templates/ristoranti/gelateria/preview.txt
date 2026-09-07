@@ -1,0 +1,3 @@
+Anteprima template: Gelateria
+Cartella: templates/ristoranti/gelateria
+Piano minimo: starter

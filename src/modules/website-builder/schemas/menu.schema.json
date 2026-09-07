@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gestionesemplificata.com/schemas/website-builder/menu.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "version",
+    "content",
+    "design",
+    "layout",
+    "settings"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "type": {
+      "const": "menu"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "heading": {
+          "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+        },
+        "source": {
+          "enum": [
+            "manual",
+            "ristosimply"
+          ]
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+                    },
+                    "description": {
+                      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+                    },
+                    "price": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "design": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/design"
+    },
+    "layout": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/layout"
+    },
+    "settings": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/settings"
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gestionesemplificata.com/schemas/website-builder/team.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "version",
+    "content",
+    "design",
+    "layout",
+    "settings"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "type": {
+      "const": "team"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "heading": {
+          "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "role": {
+                "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+              },
+              "bio": {
+                "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+              },
+              "photoMediaId": {
+                "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/mediaId"
+              }
+            }
+          }
+        }
+      }
+    },
+    "design": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/design"
+    },
+    "layout": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/layout"
+    },
+    "settings": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/settings"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+﻿FASE B — CRUD siti, pagine, sezioni
+
+- controllers/websites.controller.js, pages.controller.js, sections.controller.js
+- services + repositories corrispondenti
+- Area clienti GS: /account#siti (I miei siti)
+- Isolamento 403 tra tenant

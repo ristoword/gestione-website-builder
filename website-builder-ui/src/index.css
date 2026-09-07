@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+.glass {
+  @apply bg-surface-800/80 backdrop-blur border border-white/10;
+}

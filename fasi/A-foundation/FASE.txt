@@ -1,0 +1,13 @@
+﻿FASE A — Foundation
+
+Creato in questa fase (GS + Desktop):
+- src/modules/website-builder/db/sqlite.js
+- src/modules/website-builder/db/migrate.js
+- src/modules/website-builder/config/plans.config.js
+- src/modules/website-builder/config/env.js
+- src/modules/website-builder/middlewares/tenant.middleware.js
+- src/modules/website-builder/schemas/*.schema.json (18 sezioni)
+- src/modules/website-builder/website-builder.routes.js
+- data/ (SQLite, niente copie di users.json)
+
+Regola: tenantId = sessione GS user.id. Flag WEBSITE_BUILDER_ENABLED.

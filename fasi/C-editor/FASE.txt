@@ -1,0 +1,5 @@
+﻿FASE C — Editor visuale SPA
+
+- website-builder-ui/ (React + Vite, base /builder)
+- renderer/render-site.js (HTML reale da JSON, non mock)
+- Anteprima live POST /websites/:id/preview

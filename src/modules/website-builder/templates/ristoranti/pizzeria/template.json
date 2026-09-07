@@ -1,0 +1,50 @@
+{
+  "id": "tpl_pizzeria",
+  "slug": "pizzeria",
+  "name": "Pizzeria",
+  "category": "ristorazione",
+  "min_plan_key": "starter",
+  "description": "Vetrina calda per pizzerie: hero, piatti, galleria e recapiti.",
+  "preview": "preview.txt",
+  "manifest": {
+    "theme": {
+      "colors": {
+        "primary": "#1a1a1a",
+        "accent": "#d97706",
+        "background": "#fff7ed",
+        "text": "#1a1a1a",
+        "muted": "#5c5c5c"
+      },
+      "fonts": {
+        "heading": "Playfair Display",
+        "body": "DM Sans"
+      },
+      "radius": "12px",
+      "spacing": "1.5rem"
+    },
+    "pages": [
+      {
+        "slug": "home",
+        "title": "Home",
+        "type": "home",
+        "isHome": true,
+        "sections": [
+          "hero",
+          "features",
+          "menu",
+          "gallery",
+          "contact"
+        ]
+      },
+      {
+        "slug": "menu",
+        "title": "Pizze",
+        "type": "page",
+        "isHome": false,
+        "sections": [
+          "menu"
+        ]
+      }
+    ]
+  }
+}

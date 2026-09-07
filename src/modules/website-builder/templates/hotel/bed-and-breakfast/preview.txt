@@ -1,0 +1,3 @@
+Anteprima template: Bed & Breakfast
+Cartella: templates/hotel/bed-and-breakfast
+Piano minimo: starter

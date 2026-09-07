@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gestionesemplificata.com/schemas/website-builder/booking.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "version",
+    "content",
+    "design",
+    "layout",
+    "settings"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "type": {
+      "const": "booking"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "heading": {
+          "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+        },
+        "source": {
+          "enum": [
+            "manual",
+            "ristosimply"
+          ]
+        },
+        "provider": {
+          "type": "string"
+        },
+        "embedUrl": {
+          "type": "string"
+        },
+        "cta": {
+          "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/cta"
+        }
+      }
+    },
+    "design": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/design"
+    },
+    "layout": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/layout"
+    },
+    "settings": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/settings"
+    }
+  }
+}

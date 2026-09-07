@@ -1,0 +1,3 @@
+Anteprima template: Asporto e delivery
+Cartella: templates/ristoranti/asporto-delivery
+Piano minimo: starter

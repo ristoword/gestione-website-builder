@@ -1,0 +1,5 @@
+﻿FASE I — RistoSimply
+
+- integrations/ristosimply.client.js
+- GET /websites/:id/ristosimply
+- Read-only: i dati menu/eventi NON vengono copiati nel SQLite del builder

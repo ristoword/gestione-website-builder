@@ -1,0 +1,70 @@
+{
+  "$id": "https://gestionesemplificata.com/schemas/website-builder/common.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "locale": {
+      "type": "string",
+      "enum": ["it", "en", "nl", "de", "fr", "es", "pt"]
+    },
+    "i18nString": {
+      "type": "object",
+      "propertyNames": {
+        "enum": ["it", "en", "nl", "de", "fr", "es", "pt"]
+      },
+      "additionalProperties": { "type": "string" }
+    },
+    "mediaId": {
+      "type": ["string", "null"]
+    },
+    "design": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "backgroundColor": { "type": "string" },
+        "textColor": { "type": "string" },
+        "accentColor": { "type": "string" },
+        "fontFamily": { "type": "string" },
+        "fontSize": { "type": "string" },
+        "borderRadius": { "type": "string" },
+        "borderColor": { "type": "string" },
+        "borderWidth": { "type": "string" },
+        "backgroundImageMediaId": { "$ref": "#/$defs/mediaId" },
+        "overlayOpacity": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "columns": { "type": "integer", "minimum": 1, "maximum": 12 },
+        "gap": { "type": "string" },
+        "alignment": { "enum": ["left", "center", "right", "stretch"] },
+        "maxWidth": { "type": "string" },
+        "order": { "type": "integer" },
+        "padding": { "type": "string" },
+        "margin": { "type": "string" }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "visibleDesktop": { "type": "boolean" },
+        "visibleTablet": { "type": "boolean" },
+        "visibleMobile": { "type": "boolean" },
+        "anchorId": { "type": "string" },
+        "animation": { "type": "string" },
+        "seoSnippet": { "type": "string" },
+        "integration": { "type": ["string", "null"] }
+      }
+    },
+    "cta": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": { "$ref": "#/$defs/i18nString" },
+        "href": { "type": "string" }
+      }
+    }
+  }
+}

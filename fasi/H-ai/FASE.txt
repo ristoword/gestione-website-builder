@@ -1,0 +1,6 @@
+﻿FASE H — AI
+
+- services/ai.service.js
+- POST /websites/:id/ai/generate e /apply
+- Patch sezioni validate dagli schema AJV
+- Serve OPENAI_API_KEY oppure WEBSITE_AI_OFFLINE=true

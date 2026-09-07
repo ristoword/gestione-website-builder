@@ -1,0 +1,41 @@
+{
+  "id": "tpl_bb",
+  "slug": "bed-and-breakfast",
+  "name": "Bed & Breakfast",
+  "category": "ospitalita",
+  "min_plan_key": "starter",
+  "description": "B&B compatto: chi siamo, foto, mappa e prenota.",
+  "preview": "preview.txt",
+  "manifest": {
+    "theme": {
+      "colors": {
+        "primary": "#1a1a1a",
+        "accent": "#0369a1",
+        "background": "#f0f9ff",
+        "text": "#1a1a1a",
+        "muted": "#5c5c5c"
+      },
+      "fonts": {
+        "heading": "Playfair Display",
+        "body": "DM Sans"
+      },
+      "radius": "12px",
+      "spacing": "1.5rem"
+    },
+    "pages": [
+      {
+        "slug": "home",
+        "title": "Home",
+        "type": "home",
+        "isHome": true,
+        "sections": [
+          "hero",
+          "about",
+          "gallery",
+          "booking",
+          "map"
+        ]
+      }
+    ]
+  }
+}

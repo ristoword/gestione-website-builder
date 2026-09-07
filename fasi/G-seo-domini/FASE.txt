@@ -1,0 +1,4 @@
+﻿FASE G — SEO e domini (solo TXT)
+
+- services/domains.service.js (verifica record TXT, niente NS/A/CNAME dal cliente)
+- sitemap.xml e robots.txt per sito

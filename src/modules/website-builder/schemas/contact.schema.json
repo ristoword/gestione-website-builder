@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gestionesemplificata.com/schemas/website-builder/contact.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "version",
+    "content",
+    "design",
+    "layout",
+    "settings"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "type": {
+      "const": "contact"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "heading": {
+          "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "address": {
+          "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+        },
+        "formId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "design": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/design"
+    },
+    "layout": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/layout"
+    },
+    "settings": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/settings"
+    }
+  }
+}

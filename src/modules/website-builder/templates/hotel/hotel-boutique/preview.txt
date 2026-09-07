@@ -1,0 +1,3 @@
+Anteprima template: Hotel boutique
+Cartella: templates/hotel/hotel-boutique
+Piano minimo: business

@@ -1,0 +1,3 @@
+Anteprima template: Ristorante classico
+Cartella: templates/ristoranti/ristorante-classico
+Piano minimo: starter

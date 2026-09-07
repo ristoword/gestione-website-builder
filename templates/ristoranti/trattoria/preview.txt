@@ -1,0 +1,3 @@
+Anteprima template: Trattoria
+Cartella: templates/ristoranti/trattoria
+Piano minimo: starter

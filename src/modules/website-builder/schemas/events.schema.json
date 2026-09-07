@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gestionesemplificata.com/schemas/website-builder/events.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "type",
+    "version",
+    "content",
+    "design",
+    "layout",
+    "settings"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "type": {
+      "const": "events"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "heading": {
+          "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+        },
+        "source": {
+          "enum": [
+            "manual",
+            "ristosimply"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+              },
+              "date": {
+                "type": "string"
+              },
+              "place": {
+                "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+              },
+              "description": {
+                "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/i18nString"
+              }
+            }
+          }
+        }
+      }
+    },
+    "design": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/design"
+    },
+    "layout": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/layout"
+    },
+    "settings": {
+      "$ref": "https://gestionesemplificata.com/schemas/website-builder/common.json#/$defs/settings"
+    }
+  }
+}

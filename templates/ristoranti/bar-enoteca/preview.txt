@@ -1,0 +1,3 @@
+Anteprima template: Bar e enoteca
+Cartella: templates/ristoranti/bar-enoteca
+Piano minimo: starter

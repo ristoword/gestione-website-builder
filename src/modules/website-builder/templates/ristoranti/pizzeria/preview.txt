@@ -1,0 +1,3 @@
+Anteprima template: Pizzeria
+Cartella: templates/ristoranti/pizzeria
+Piano minimo: starter

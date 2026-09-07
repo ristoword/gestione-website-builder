@@ -1,0 +1,3 @@
+Anteprima template: Spa e wellness
+Cartella: templates/hotel/spa-wellness
+Piano minimo: business

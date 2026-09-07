@@ -1,0 +1,5 @@
+﻿FASE F — Bozza / anteprima / pubblicazione / versioni
+
+- services/publishing.service.js
+- repositories/versions.repository.js
+- POST publish, unpublish, rollback

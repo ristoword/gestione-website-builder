@@ -1,0 +1,3 @@
+Anteprima template: Landing generica
+Cartella: templates/generico/landing-generica
+Piano minimo: starter

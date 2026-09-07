@@ -1,0 +1,40 @@
+{
+  "id": "tpl_bar",
+  "slug": "bar-enoteca",
+  "name": "Bar e enoteca",
+  "category": "ristorazione",
+  "min_plan_key": "starter",
+  "description": "Tema scuro per bar e wine bar, con eventi e servizi.",
+  "preview": "preview.txt",
+  "manifest": {
+    "theme": {
+      "colors": {
+        "primary": "#f8fafc",
+        "accent": "#7c3aed",
+        "background": "#0f0a1a",
+        "text": "#f8fafc",
+        "muted": "#5c5c5c"
+      },
+      "fonts": {
+        "heading": "Playfair Display",
+        "body": "DM Sans"
+      },
+      "radius": "12px",
+      "spacing": "1.5rem"
+    },
+    "pages": [
+      {
+        "slug": "home",
+        "title": "Home",
+        "type": "home",
+        "isHome": true,
+        "sections": [
+          "hero",
+          "services",
+          "events",
+          "contact"
+        ]
+      }
+    ]
+  }
+}

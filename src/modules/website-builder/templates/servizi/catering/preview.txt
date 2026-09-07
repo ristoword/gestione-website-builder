@@ -1,0 +1,3 @@
+Anteprima template: Catering
+Cartella: templates/servizi/catering
+Piano minimo: business

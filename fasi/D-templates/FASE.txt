@@ -1,0 +1,9 @@
+﻿FASE D — Template a cartelle (≥10)
+
+Cartelle reali:
+  templates/ristoranti/   ristorante-classico, pizzeria, bar-enoteca, trattoria, gelateria, asporto-delivery
+  templates/hotel/        hotel-boutique, bed-and-breakfast, spa-wellness
+  templates/servizi/      professionista, catering
+  templates/generico/     landing-generica
+
+Ogni cartella contiene template.json. Aggiungere un template = nuova cartella.

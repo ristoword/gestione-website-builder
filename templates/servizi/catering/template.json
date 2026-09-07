@@ -1,0 +1,51 @@
+{
+  "id": "tpl_catering",
+  "slug": "catering",
+  "name": "Catering",
+  "category": "servizi",
+  "min_plan_key": "business",
+  "description": "Servizi e eventi per società di catering (piano BUSINESS).",
+  "preview": "preview.txt",
+  "manifest": {
+    "theme": {
+      "colors": {
+        "primary": "#1a1a1a",
+        "accent": "#365314",
+        "background": "#ffffff",
+        "text": "#1a1a1a",
+        "muted": "#5c5c5c"
+      },
+      "fonts": {
+        "heading": "Playfair Display",
+        "body": "DM Sans"
+      },
+      "radius": "12px",
+      "spacing": "1.5rem"
+    },
+    "pages": [
+      {
+        "slug": "home",
+        "title": "Home",
+        "type": "home",
+        "isHome": true,
+        "sections": [
+          "hero",
+          "services",
+          "gallery",
+          "cta",
+          "contact"
+        ]
+      },
+      {
+        "slug": "eventi",
+        "title": "Eventi",
+        "type": "page",
+        "isHome": false,
+        "sections": [
+          "events",
+          "pricing"
+        ]
+      }
+    ]
+  }
+}

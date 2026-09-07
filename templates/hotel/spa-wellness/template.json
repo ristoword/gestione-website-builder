@@ -1,0 +1,41 @@
+{
+  "id": "tpl_spa",
+  "slug": "spa-wellness",
+  "name": "Spa e wellness",
+  "category": "ospitalita",
+  "min_plan_key": "business",
+  "description": "Trattamenti, prezzi e booking per centri benessere (piano BUSINESS).",
+  "preview": "preview.txt",
+  "manifest": {
+    "theme": {
+      "colors": {
+        "primary": "#1a1a1a",
+        "accent": "#0e7490",
+        "background": "#ecfeff",
+        "text": "#1a1a1a",
+        "muted": "#5c5c5c"
+      },
+      "fonts": {
+        "heading": "Playfair Display",
+        "body": "DM Sans"
+      },
+      "radius": "12px",
+      "spacing": "1.5rem"
+    },
+    "pages": [
+      {
+        "slug": "home",
+        "title": "Home",
+        "type": "home",
+        "isHome": true,
+        "sections": [
+          "hero",
+          "features",
+          "pricing",
+          "team",
+          "booking"
+        ]
+      }
+    ]
+  }
+}

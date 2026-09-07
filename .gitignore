@@ -1,0 +1,14 @@
+node_modules
+website-builder-ui/node_modules
+.env
+.env.local
+data/*.sqlite
+data/*.sqlite-*
+storage/website-media/**
+!storage/website-media/.gitkeep
+storage/website-builder/**
+!storage/website-builder/.gitkeep
+logs
+*.log
+.DS_Store
+Thumbs.db

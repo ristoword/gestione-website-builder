@@ -1,0 +1,6 @@
+﻿FASE J — Limiti piano e hardening
+
+- config/plans.config.js  sitoweb_base=STARTER, sitoweb_pro=BUSINESS, sitoweb_premium=PROFESSIONAL
+- middlewares/plan.middleware.js
+- Quote siti/pagine/storage/domini/crediti AI lato server
+- tenantId mai dal client
