@@ -10,4 +10,10 @@ Creato in questa fase (GS + Desktop):
 - src/modules/website-builder/website-builder.routes.js
 - data/ (SQLite, niente copie di users.json)
 
-Regola: tenantId = sessione GS user.id. Flag WEBSITE_BUILDER_ENABLED.
+Regola: tenantId = sessione (locale standalone o GS). Flag WEBSITE_BUILDER_ENABLED.
+
+Runtime satellite (main → Railway):
+- Health: https://gestione-website-builder-production.up.railway.app/api/website-builder/health
+- Hub: https://gestione-website-builder-production.up.railway.app/website
+- SQLite + 18 schema sezioni + migrate fase_a_foundation
+- Completata su https://github.com/ristoword/gestione-website-builder

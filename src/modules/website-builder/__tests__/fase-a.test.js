@@ -175,6 +175,10 @@ describe('website-builder Fase A foundation', () => {
     assert.equal(health.body.sqlite, 'ok');
     assert.equal(health.body.appUrl, DEFAULT_APP_URL);
     assert.equal(health.body.sectionTypes, 18);
+    assert.equal(health.body.standalone, true);
+    assert.ok(Array.isArray(health.body.fasiCompletate));
+    assert.ok(health.body.fasiCompletate.includes('A'));
+    assert.ok(String(health.body.hub).endsWith('/website'));
 
     const status = await request(app).get('/api/website-builder/status');
     assert.equal(status.status, 200);

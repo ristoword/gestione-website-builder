@@ -1,6 +1,7 @@
 const { getAppUrl } = require('../config/env');
 const { listSectionTypes } = require('../config/section-registry');
 const { getEngine } = require('../db/sqlite');
+const { completed, railway, hubPath } = require('../config/fasi-runtime');
 
 function createHealthController(db) {
   function sqliteOk() {
@@ -17,9 +18,12 @@ function createHealthController(db) {
       module: 'website-builder',
       fase: 'J',
       enabled: true,
+      standalone: true,
       sqlite: sqliteOk() ? 'ok' : 'error',
       sqliteEngine: getEngine(),
       appUrl: getAppUrl(),
+      hub: `${railway}${hubPath}`,
+      fasiCompletate: completed,
       sectionTypes: listSectionTypes().length
     };
   }
