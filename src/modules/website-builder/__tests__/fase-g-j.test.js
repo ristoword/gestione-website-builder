@@ -64,7 +64,7 @@ function createBuilderApp(db) {
   return app;
 }
 
-describe('website-builder Fasi G–J SEO, AI, RistoSimply, hardening', () => {
+describe('website-builder Fasi H–J AI, RistoSimply, hardening', () => {
   let app;
   let site;
 
@@ -77,32 +77,6 @@ describe('website-builder Fasi G–J SEO, AI, RistoSimply, hardening', () => {
       .post('/api/website-builder/websites')
       .send({ name: 'Sito GJ' });
     site = created.body.website;
-  });
-
-  it('custom domain is TXT-only and isolated; sitemap is per-tenant', async () => {
-    const add = await jsonAgent(app, USER_A)
-      .post(`/api/website-builder/websites/${site.id}/domains`)
-      .send({ host: 'www.esempio-wb-test.it', type: 'custom' });
-    assert.equal(add.status, 201, JSON.stringify(add.body));
-    const instructions = JSON.parse(add.body.domain.dns_instructions_json || '{}');
-    assert.equal(instructions.recordType, 'TXT');
-    assert.ok(String(instructions.note).toLowerCase().includes('txt'));
-
-    const cross = await jsonAgent(app, USER_B)
-      .post(`/api/website-builder/websites/${site.id}/domains/${add.body.domain.id}/verify`)
-      .send({ token: add.body.domain.verification_token });
-    assert.equal(cross.status, 403);
-
-    const verify = await jsonAgent(app, USER_A)
-      .post(`/api/website-builder/websites/${site.id}/domains/${add.body.domain.id}/verify`)
-      .send({ token: add.body.domain.verification_token });
-    assert.equal(verify.status, 200, JSON.stringify(verify.body));
-
-    const sm = await jsonAgent(app, USER_A).get(
-      `/api/website-builder/websites/${site.id}/seo/sitemap.xml`
-    );
-    assert.equal(sm.status, 200);
-    assert.ok(String(sm.text).includes('urlset'));
   });
 
   it('AI generate returns a validated patch then apply', async () => {

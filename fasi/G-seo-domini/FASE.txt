@@ -2,3 +2,8 @@
 
 - services/domains.service.js (verifica record TXT, niente NS/A/CNAME dal cliente)
 - sitemap.xml e robots.txt per sito
+
+Runtime satellite (main → Railway):
+- POST /api/website-builder/websites/:id/domains (solo TXT)
+- GET /api/website-builder/websites/:id/seo/sitemap.xml
+- Completata su https://github.com/ristoword/gestione-website-builder
