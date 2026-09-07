@@ -86,3 +86,20 @@ templates/                Template a cartelle
 1. Copia una cartella in `templates/`
 2. Modifica `template.json`
 3. Riavvia: l’editor li legge da disco
+
+## Fasi A–J (su main)
+
+| Fase | Contenuto |
+|------|-----------|
+| HUB | `/website` login locale, SSO opzionale |
+| A | SQLite, schema, health |
+| B | CRUD siti / pagine / sezioni |
+| C | Editor `/builder` + preview |
+| D | ≥10 template a cartelle |
+| E | Media library |
+| F | Pubblicazione e versioni |
+| G | SEO + dominio TXT |
+| H | AI generate/apply |
+| I | RistoSimply read-only |
+| J | Limiti piano e hardening |
+

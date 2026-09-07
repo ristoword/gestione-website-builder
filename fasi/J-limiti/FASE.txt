@@ -4,3 +4,8 @@
 - middlewares/plan.middleware.js
 - Quote siti/pagine/storage/domini/crediti AI lato server
 - tenantId mai dal client
+
+Runtime satellite (main → Railway):
+- Quote piano lato server (standalone default BUSINESS)
+- Health: https://gestione-website-builder-production.up.railway.app/api/website-builder/health
+- Completata su https://github.com/ristoword/gestione-website-builder

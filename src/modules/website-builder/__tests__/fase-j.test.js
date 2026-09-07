@@ -16,13 +16,6 @@ const USER_A = {
   role: 'customer',
   products: ['sitoweb_pro']
 };
-const USER_B = {
-  id: 'usr_tenant_b',
-  email: 'b@example.com',
-  type: 'customer',
-  role: 'customer',
-  products: ['sitoweb_pro']
-};
 
 function jsonAgent(app, user) {
   const agent = request.agent(app);
@@ -68,13 +61,12 @@ describe('website-builder Fase J limiti piano e hardening', () => {
   let site;
 
   before(async () => {
-    process.env.WEBSITE_AI_OFFLINE = 'true';
     const db = openDatabase(':memory:');
     migrate(db);
     app = createBuilderApp(db);
     const created = await jsonAgent(app, USER_A)
       .post('/api/website-builder/websites')
-      .send({ name: 'Sito GJ' });
+      .send({ name: 'Sito J' });
     site = created.body.website;
   });
 
@@ -87,5 +79,15 @@ describe('website-builder Fase J limiti piano e hardening', () => {
     const dash = await request(app).get('/dashboard').set('Host', 'localhost');
     assert.equal(dash.status, 200);
     assert.equal(dash.text, 'GS-DASHBOARD');
+  });
+
+  it('GET /status reports all fasi A–J completed on satellite', async () => {
+    const res = await request(app).get('/api/website-builder/status');
+    assert.equal(res.status, 200);
+    assert.equal(res.body.fase, 'J');
+    assert.equal(res.body.standalone, true);
+    for (const letter of ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']) {
+      assert.ok(res.body.fasiCompletate.includes(letter), `manca fase ${letter}`);
+    }
   });
 });
