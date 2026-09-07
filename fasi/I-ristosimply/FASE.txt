@@ -3,3 +3,7 @@
 - integrations/ristosimply.client.js
 - GET /websites/:id/ristosimply
 - Read-only: i dati menu/eventi NON vengono copiati nel SQLite del builder
+
+Runtime satellite (main → Railway):
+- GET /api/website-builder/websites/:id/ristosimply
+- Completata su https://github.com/ristoword/gestione-website-builder
