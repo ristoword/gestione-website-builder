@@ -4,3 +4,8 @@
 - POST /websites/:id/ai/generate e /apply
 - Patch sezioni validate dagli schema AJV
 - Serve OPENAI_API_KEY oppure WEBSITE_AI_OFFLINE=true
+
+Runtime satellite (main → Railway):
+- POST /api/website-builder/websites/:id/ai/generate
+- POST /api/website-builder/websites/:id/ai/jobs/:jobId/apply
+- Completata su https://github.com/ristoword/gestione-website-builder

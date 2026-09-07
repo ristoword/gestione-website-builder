@@ -7,19 +7,10 @@ const request = require('supertest');
 const { openDatabase } = require('../db/sqlite');
 const { migrate } = require('../db/migrate');
 const { createRouter } = require('../website-builder.routes');
-const { createPublicRenderer } = require('../renderer/renderer.middleware');
-const { fetchConnectedData } = require('../integrations/ristosimply.client');
 
 const USER_A = {
   id: 'usr_tenant_a',
   email: 'a@example.com',
-  type: 'customer',
-  role: 'customer',
-  products: ['sitoweb_pro']
-};
-const USER_B = {
-  id: 'usr_tenant_b',
-  email: 'b@example.com',
   type: 'customer',
   role: 'customer',
   products: ['sitoweb_pro']
@@ -34,8 +25,7 @@ function jsonAgent(app, user) {
   }
   return {
     get: (url) => withUser(agent.get(url)),
-    post: (url) => withUser(agent.post(url)),
-    patch: (url) => withUser(agent.patch(url))
+    post: (url) => withUser(agent.post(url))
   };
 }
 
@@ -58,13 +48,10 @@ function createBuilderApp(db) {
     next();
   });
   app.use('/api/website-builder', createRouter({ db }));
-  app.use(createPublicRenderer(db));
-  app.get('/dashboard', (_req, res) => res.status(200).send('GS-DASHBOARD'));
-  app.use((req, res) => res.status(404).send('Pagina non trovata'));
   return app;
 }
 
-describe('website-builder Fasi I–J RistoSimply, hardening', () => {
+describe('website-builder Fase H AI', () => {
   let app;
   let site;
 
@@ -75,29 +62,28 @@ describe('website-builder Fasi I–J RistoSimply, hardening', () => {
     app = createBuilderApp(db);
     const created = await jsonAgent(app, USER_A)
       .post('/api/website-builder/websites')
-      .send({ name: 'Sito GJ' });
+      .send({ name: 'Sito H' });
     site = created.body.website;
   });
 
-  it('RistoSimply integration does not duplicate restaurant data', async () => {
-    const res = await jsonAgent(app, USER_A).get(
-      `/api/website-builder/websites/${site.id}/ristosimply`
-    );
-    assert.equal(res.status, 200);
-    assert.equal(res.body.ristosimply.duplicated, false);
-    assert.equal(res.body.ristosimply.source, 'ristosimply');
-    const stub = await fetchConnectedData({ email: USER_A.email });
-    assert.equal(stub.duplicated, false);
+  it('AI generate returns a validated patch then apply', async () => {
+    const gen = await jsonAgent(app, USER_A)
+      .post(`/api/website-builder/websites/${site.id}/ai/generate`)
+      .send({ prompt: 'Crea una sezione menu e faq' });
+    assert.equal(gen.status, 201, JSON.stringify(gen.body));
+    assert.equal(gen.body.job.status, 'ready');
+    assert.ok(Array.isArray(gen.body.job.patch.sections));
+    const homeId = site.pages[0].id;
+    const applied = await jsonAgent(app, USER_A)
+      .post(`/api/website-builder/websites/${site.id}/ai/jobs/${gen.body.job.id}/apply`)
+      .send({ pageId: homeId });
+    assert.equal(applied.status, 200, JSON.stringify(applied.body));
+    assert.equal(applied.body.job.status, 'applied');
   });
 
-  it('enforces locale cap and does not capture GS dashboard host', async () => {
-    const tooMany = await jsonAgent(app, USER_A)
-      .patch(`/api/website-builder/websites/${site.id}`)
-      .send({ locales: ['it', 'en', 'fr', 'de'] });
-    assert.equal(tooMany.status, 403);
-
-    const dash = await request(app).get('/dashboard').set('Host', 'localhost');
-    assert.equal(dash.status, 200);
-    assert.equal(dash.text, 'GS-DASHBOARD');
+  it('GET /status reports Fase H completed on satellite', async () => {
+    const res = await request(app).get('/api/website-builder/status');
+    assert.equal(res.status, 200);
+    assert.ok(res.body.fasiCompletate.includes('H'));
   });
 });
