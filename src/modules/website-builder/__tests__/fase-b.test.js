@@ -96,6 +96,7 @@ describe('website-builder Fase B CRUD + isolamento', () => {
     const res = await request(app).get('/api/website-builder/status');
     assert.equal(res.status, 200);
     assert.equal(res.body.fase, 'J');
+    assert.ok(res.body.fasiCompletate.includes('B'));
   });
 
   it('POST /websites creates a draft site with home page and sections for the session tenant', async () => {

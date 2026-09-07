@@ -4,3 +4,9 @@
 - services + repositories corrispondenti
 - Area clienti GS: /account#siti (I miei siti)
 - Isolamento 403 tra tenant
+- Hub standalone: I miei siti su /website (API /websites)
+
+Runtime satellite (main → Railway):
+- CRUD: GET/POST /api/website-builder/websites
+- Hub elenco siti: https://gestione-website-builder-production.up.railway.app/website
+- Completata su https://github.com/ristoword/gestione-website-builder
